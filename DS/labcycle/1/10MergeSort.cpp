@@ -80,15 +80,15 @@ void MERGE_SORT(float *A,float *B,int N)
 
 int main()
 {
-    int option,n,choice=0;
+    int option,n,choice=1;
     float A[14]={66,33,40,22,55,88,60,11,80,20,50,44,77,30};
     float B[14];
     float *C;
     float *D;
 
-    cout<<"   MERGE SORT"<<endl;
+    cout<<"   ------ MERGE SORT ------"<<endl;
     cout<<"   "<<endl;
-    while(choice==0)
+    while(choice==1)
     {
         cout<<"   Choose from the following options to continue"<<endl;
         cout<<"      1 : Enter a new array"<<endl;
@@ -105,23 +105,18 @@ int main()
 
           C=new float[n];
           D=new float[n];
-           for(int i=0;i<n;i++)
+          cout<<"   >>>";
+          for(int i=0;i<n;i++)
            {
                cin>>C[i];
            }
 
-            cout<<"   New array : "<<endl;
-            for(int i=0;i<n-1;i++)
-            {
-                cout<<C[i]<<", ";
-            }
-            cout<<C[n-1]<<endl;
-
             cout<<"   Array after sorting : "<<endl;
+            cout<<"   >>>";
             
             MERGE_SORT(C,D,n);
             
-            if(n/2==0)
+            if(float(n/2)==0)
             {
                 for(int i=0;i<n-1;i++)
                 {
@@ -142,16 +137,18 @@ int main()
         
         else if(option==2)
         {
-            n=12;
+            n=14;
             cout<<"   Default array : "<<endl;
+            cout<<"   >>>";
             for(int i=0;i<n-1;i++)
             {
                 cout<<A[i]<<", ";
             }
             cout<<A[n-1]<<endl;
             cout<<"   Array after sorting : "<<endl;
+            cout<<"   >>>";
             MERGE_SORT(A,B,n);
-           if(n/2==0)
+           if(float(n/2)==0)
             {
                 for(int i=0;i<n-1;i++)
                 {
@@ -171,12 +168,12 @@ int main()
         }
         
         
-        cout<<"   Would you like to exit the program"<<endl;
+        cout<<"   Would you like to continue"<<endl;
         cout<<"      1 : yes"<<endl;
         cout<<"      0 : no"<<endl;
         cout<<"   >>>";
         cin>>choice;
-
+        cout<<"   "<<endl;
 
     }
 

@@ -11,11 +11,17 @@ void INSERTION (float* DATA,int* N,int K,float ITEM)
     *N=*N+1;
 }
 
-void DELETION (float* DATA,int* N,int K)
+void DELETION (float* DATA,int* N,float ITEM)
 {
-    for(int j=K;K<*N-1;j++)
+    for(int j=0;j<*N;j++)
     {
-        DATA[j]=DATA[K+1];
+        if(DATA[j]==ITEM)
+        {
+            for(int k=j;k<*N-1;k++)
+            {
+                DATA[k]=DATA[k+1];
+            }
+        }
     }
     *N=*N-1;
 
@@ -23,51 +29,49 @@ void DELETION (float* DATA,int* N,int K)
 
 int main()
 {
-    float B[13]={10,22,35,40,45,50,80,82,85,90,100,235};
-    float *data;
     float item;
-    int option,n,k,con,choice=0;
+    int n,k,option,select,choice=1;
     
-    cout<<"   INSERTION AND DELETION ON LINEAR ARRAY"<<endl;
+    cout<<"   ------ INSERTION AND DELETION ON LINEAR ARRAY ------"<<endl;
     cout<<"   "<<endl;
-    while(choice==0)
+    while(choice==1)
     {
+        float *data1;
+        float data2[12]={3,9,21,36,45,49,56,64,81,90,100};
         cout<<"   Choose from the following options to continue"<<endl;
         cout<<"      1 : Enter a new array"<<endl;
         cout<<"      2 : Use a default array"<<endl;
         cout<<"   >>>";
         cin>>option;
+        cout<<"   "<<endl;
         
-
         if(option==1)
         {
            cout<<"   Enter the number of elements in the array"<<endl;
            cout<<"   >>>";
-           cin>>n; 
+           cin>>n;
+           cout<<"   "<<endl; 
 
-           data=new float[n+1];
+           data1=new float[n+1];
+           cout<<"   >>>";
            for(int i=0;i<n;i++)
            {
-               cin>>data[i];
+               cin>>data1[i];
            }
-
-            cout<<"   New array : "<<endl;
-            for(int i=0;i<n-1;i++)
-            {
-                cout<<data[i]<<", ";
-            }
-            cout<<data[n-1]<<endl;
+           cout<<"   "<<endl;
         }
         
         else if(option==2)
         {
-            n=12;
+            n=11;
+
             cout<<"   Default array : "<<endl;
             for(int i=0;i<n-1;i++)
             {
-                cout<<B[i]<<", ";
+                cout<<data2[i]<<", ";
             }
-            cout<<B[n-1]<<endl;
+            cout<<data2[n-1]<<endl;
+            cout<<"   "<<endl;
 
         }
 
@@ -75,73 +79,83 @@ int main()
         cout<<"      1 : Insert an element to the array"<<endl;
         cout<<"      2 : Delete an element from the array"<<endl;
         cout<<"   >>>";
-        cin>>con;
+        cin>>select;
+        cout<<"   "<<endl;
 
-        if(con==1)
+        if(select==1)
         {
             cout<<"   Enter the element to be inserted "<<endl;
             cout<<"   >>>";
             cin>>item;
+            cout<<"   "<<endl;
 
             cout<<"   Enter the position where to be inserted "<<endl;
             cout<<"   >>>";
             cin>>k;
+            cout<<"   "<<endl;
 
             if(option==1)
             {
-                INSERTION(data,&n,k-1,item);
+                INSERTION(data1,&n,k-1,item);
                 cout<<"   Array after insertion : "<<endl;
+                cout<<"      ";
                 for(int i=0;i<n-1;i++)
                 {
-                    cout<<data[i]<<", ";
+                    cout<<data1[i]<<", ";
                 }
-                cout<<data[n-1]<<endl;
+                cout<<data1[n-1]<<endl;
             }
             else if(option==2)
             {
-                INSERTION(B,&n,k-1,item);
+                INSERTION(data2,&n,k-1,item);
                 cout<<"   Array after insertion : "<<endl;
+                cout<<"      ";
                 for(int i=0;i<n-1;i++)
                 {
-                    cout<<B[i]<<", ";
+                    cout<<data2[i]<<", ";
                 }
-                cout<<B[n-1]<<endl;
+                cout<<data2[n-1]<<endl;
             }
+            cout<<"   "<<endl;
         }
             
-        else if(con==2)
+        else if(select==2)
         {
-            cout<<"   Enter the position where deletion is done "<<endl;
+            cout<<"   Enter the element to be deleted "<<endl;
             cout<<"   >>>";
-            cin>>k;
+            cin>>item;
+            cout<<"   "<<endl;
 
             if(option==1)
             {
-                DELETION(data,&n,k-1);
-                cout<<"   Array after insertion : "<<endl;
+                DELETION(data1,&n,item);
+                cout<<"   Array after deletion : "<<endl;
+                cout<<"      ";
                 for(int i=0;i<n-1;i++)
                 {
-                    cout<<data[i]<<", ";
+                    cout<<data1[i]<<", ";
                 }
-                cout<<data[n-1]<<endl;
+                cout<<data1[n-1]<<endl;
             }
             else if(option==2)
             {
-                DELETION(B,&n,k-1);
-                cout<<"   Array after insertion : "<<endl;
+                DELETION(data2,&n,item);
+                cout<<"   Array after deletion : "<<endl;
+                cout<<"      ";
                 for(int i=0;i<n-1;i++)
                 {
-                    cout<<B[i]<<", ";
+                    cout<<data2[i]<<", ";
                 }
-                cout<<B[n-1]<<endl;
+                cout<<data2[n-1]<<endl;
             }
+            cout<<"   "<<endl;
         }
 
-         cout<<"   Would you like to exit the program"<<endl;
-            cout<<"      1 : yes"<<endl;
-            cout<<"      0 : no"<<endl;
-            cout<<"   >>>";
-            cin>>choice;
+         cout<<"   Would you like to continue"<<endl;
+         cout<<"      1 : yes"<<endl;
+         cout<<"      0 : no"<<endl;
+         cout<<"   >>>";
+         cin>>choice;
 
 
     }

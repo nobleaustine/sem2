@@ -20,7 +20,7 @@ int main()
 {
     int option,n,loc,choice=1;
     float item;
-    cout<<"   LINEAR SEARCH"<<endl;
+    cout<<"   ------ LINEAR SEARCH ------"<<endl;
     cout<<"   "<<endl;
     
     while(choice==1)
@@ -37,14 +37,14 @@ int main()
             cout<<"   Enter the size of the array"<<endl;
             cout<<"   >>>";
             cin>>n;
-            float Data[n];
+            float data[n];
             cout<<"   "<<endl;
             
             cout<<"   Enter the elements of the array in ascending order"<<endl;
             cout<<"   >>>";
             for(int i=0;i<n;i++)
             {
-                cin>>Data[i];
+                cin>>data[i];
             }
             cout<<"   "<<endl;
             cout<<"   Enter the item to be searched"<<endl;
@@ -52,7 +52,7 @@ int main()
             cin>>item;
             cout<<"   "<<endl;
             
-            loc=LINEAR_SEARCH(Data,n,item);
+            loc=LINEAR_SEARCH(data,n,item);
 
         }
 
@@ -86,12 +86,11 @@ int main()
             cout<<"   "<<endl;
 
         
-        cout<<"   Would you like to continue :-"<<endl;
-        cout<<"      1: to continue"<<endl;
-        cout<<"      2: to exit"<<endl;
+        cout<<"   Would you like to continue"<<endl;
+        cout<<"      1 : yes"<<endl;
+        cout<<"      0 : no"<<endl;
         cout<<"   >>>";
         cin>>choice;
-        cout<<"   "<<endl;
     }
 
  return 0;}

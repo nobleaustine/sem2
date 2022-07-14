@@ -52,7 +52,7 @@ int main()
     float *A;
     float B[12]={10,22,35,40,45,50,80,82,85,90,100,235};
 
-    cout<<"   FIBONACCI SEARCH"<<endl;
+    cout<<"   ------ FIBONACCI SEARCH ------"<<endl;
     cout<<"   "<<endl;
     while(choice==0)
     {
@@ -70,23 +70,18 @@ int main()
            cin>>n; 
 
            A=new float[n];
+           cout<<"   >>>";
            for(int i=0;i<n;i++)
            {
                cin>>A[i];
            }
-
-            cout<<"   New array : "<<endl;
-            for(int i=0;i<n-1;i++)
-            {
-                cout<<A[i]<<", ";
-            }
-            cout<<A[n-1]<<endl;
         }
         
         else if(option==2)
         {
             n=12;
             cout<<"   Default array : "<<endl;
+            cout<<"   >>>";
             for(int i=0;i<n-1;i++)
             {
                 cout<<B[i]<<", ";

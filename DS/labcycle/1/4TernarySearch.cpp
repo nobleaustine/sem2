@@ -1,36 +1,40 @@
 # include <iostream>
 using namespace std;
 
-int BINARY_SEARCH(float DATA[],float ITEM,int N)
+int TERNARY_SEARCH(float DATA[],float ITEM,int N)
 {
-    int BEGIN=0;
-    int END=N-1;
-    int MID=(BEGIN+END)/2;
-    int LOC=-1;
+    int MID1,MID2,BEGIN=0,END=N-1,LOC=-1;
     
-    while(DATA[MID]!=ITEM && BEGIN<=END)
+    while(BEGIN<=END && LOC==-1)
     {
-        if(ITEM<DATA[MID])
-        {
-            END=MID-1;
-        }
-        else if(ITEM>DATA[MID])
-        {
-            BEGIN=MID+1;
-        }
-        MID=(BEGIN+END)/2;
-    }
-    
-     if(DATA[MID]==ITEM)
-        {
-          LOC=MID;
-          return LOC;
-        }
-        else
-        {
-           return LOC;
-        }
+        MID1=BEGIN + ((END-BEGIN)/3);
+        MID2=BEGIN + 2*((END-BEGIN)/3);
 
+        if(ITEM==DATA[MID1])
+        {
+            LOC=MID1;
+            return LOC;
+        }
+        else if(ITEM==DATA[MID2])
+        {
+            LOC=MID2;
+            return LOC;
+        }
+       if(ITEM<DATA[MID1])
+       {
+           END=MID1-1;
+       }
+       else if(ITEM>DATA[MID1] && ITEM<DATA[MID2])
+       {
+           END=MID2-1;
+           BEGIN=MID1+1;
+       }
+       else
+       {
+           BEGIN=MID2+1;
+       }
+    }
+    return LOC;
 }
 
 int main()
@@ -69,7 +73,7 @@ int main()
             cin>>item;
             cout<<"   "<<endl;
             
-            loc=BINARY_SEARCH(Data,item,n);
+            loc=TERNARY_SEARCH(Data,item,n);
 
         }
 
@@ -89,7 +93,7 @@ int main()
             cin>>item;
             cout<<"   "<<endl;
             
-            loc=BINARY_SEARCH(A,item,10);
+            loc=TERNARY_SEARCH(A,item,12);
         }
 
             if(loc!=-1)

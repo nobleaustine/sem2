@@ -1,43 +1,36 @@
 # include <iostream>
 using namespace std;
 
-int BINARY_SEARCH(float DATA[],float ITEM,int N)
+int INTERPOLATION_SEARCH(float DATA[],float ITEM,int N)
 {
-    int BEGIN=0;
-    int END=N-1;
-    int MID=(BEGIN+END)/2;
-    int LOC=-1;
+    int POS,BEGIN=0,END=N-1,LOC=-1;
     
-    while(DATA[MID]!=ITEM && BEGIN<=END)
+    while(BEGIN<=END && ITEM>=DATA[BEGIN] && ITEM<=DATA[END])
     {
-        if(ITEM<DATA[MID])
+        POS=BEGIN + (((ITEM-DATA[BEGIN])/(DATA[END]-DATA[BEGIN]))*(END-BEGIN));
+
+        if(DATA[POS]==ITEM)
         {
-            END=MID-1;
+            LOC=POS;
+            return LOC;
         }
-        else if(ITEM>DATA[MID])
+        else if(ITEM>DATA[POS])
         {
-            BEGIN=MID+1;
-        }
-        MID=(BEGIN+END)/2;
-    }
-    
-     if(DATA[MID]==ITEM)
-        {
-          LOC=MID;
-          return LOC;
+            BEGIN=POS+1;
         }
         else
         {
-           return LOC;
+            END=POS-1;
         }
-
+    }
+    return LOC;
 }
 
 int main()
 {
     int option,n,loc,choice=1;
     float item;
-    cout<<"   ------ BINARY SEARCH ------"<<endl;
+    cout<<"   ------ INTERPOLATION SEARCH ------"<<endl;
     cout<<"   "<<endl;
     
     while(choice==1)
@@ -69,27 +62,28 @@ int main()
             cin>>item;
             cout<<"   "<<endl;
             
-            loc=BINARY_SEARCH(Data,item,n);
+            loc=INTERPOLATION_SEARCH(Data,item,n);
 
         }
 
         else if(option==2)
         {
-            float A[12]={11,22,30,33,40,44,55,60,66,77,88,99};
+            float A[20]={10,13,15,26,28,50,56,88,94,127,159,356,480,567,689,699,780,850,956,995};
 
             cout<<"Default array :-"<<endl;
-            for(int i=0;i<11;i++)
+            for(int i=0;i<19;i++)
             {
                 cout<<A[i]<<", ";
             }
-            cout<<A[11]<<endl;
+            cout<<A[19]<<endl;
+            cout<<"   "<<endl;
 
             cout<<"   Enter the item to be searched"<<endl;
             cout<<"   >>>";
             cin>>item;
             cout<<"   "<<endl;
             
-            loc=BINARY_SEARCH(A,item,10);
+            loc=INTERPOLATION_SEARCH(A,item,20);
         }
 
             if(loc!=-1)
