@@ -210,7 +210,12 @@ int main()
     M1.Default(M);
     M2.Default(L);
     M3.AddPoly(M1,M2);
+    M1.Display();
+    cout<<" "<<endl;
+    M2.Display();
+    cout<<" "<<endl;
     M3.Display();
+    cout<<" "<<endl;
     M1.ConvertDisplay();
     cout<<" "<<endl;
     M2.ConvertDisplay();

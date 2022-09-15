@@ -77,16 +77,10 @@ M = np.array([[0,1,1,1,0,0,0,0],
               [0,0,1,0,0,1,0,0],
               [0,0,1,1,0,0,0,0]])
 
-Z= np.array([[0,1,1,0,0],
-             [1,1,0,1,0],
-             [1,0,0,1,1],
-             [0,1,1,0,1],
-             [0,0,1,1,0]])
-
-G = GRAPH(Z)
-
-#G = GRAPH(M)
-search = DFS(G,0)
+G = GRAPH(M)
+print("--- DEPTH FIRST SEARCH ---")
+goal=int(input("Enter the source node : "))
+search = DFS(G,goal)
 search.traverse()
 search.printResult()
 

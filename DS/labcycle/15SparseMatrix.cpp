@@ -206,6 +206,11 @@ void MATRIX::SparseAdd(MATRIX &M1,MATRIX &M2)
 
 int main()
 {
+
+    cout<<"   "<<endl;
+    cout<<"       ------ SPARSE MATRIX ------"<<endl;
+    cout<<"   "<<endl;
+
     int **M=new int *[7];
 
     for(int k=0;k<7;k++)
@@ -283,134 +288,53 @@ int **L=new int *[9];
     L[8][0]=4;
     L[8][1]=3;
     L[8][2]=7;
-
     
-    // int M[7][3]={{5,6,6},{0,4,9},{1,1,8},{2,0,4},{2,3,2},{3,5,5},{4,2,2}};
-    // int L[9][3]={{5,6,8},{0,2,4},{0,4,8},{1,1,6},{1,2,4},{2,3,6},{3,4,2},{3,5,6},{4,3,7}};
-
-
-
-    // MATRIX M1(7,3);
-    // MATRIX M2(7,3);
-    // MATRIX M3(6,5);
+    MATRIX M1(5,6);
+    MATRIX M2(5,6);
     MATRIX M4(7,3);
     MATRIX M5(9,3);
     MATRIX M6(15,3);
+    MATRIX M7(5,6);
     M4.Default(M);
     M5.Default(L);
-
-    //M1.Input();
-
-    // M2.Transpose(M4);
-    // M2.Display();
-    // M3.Convert1(M2);
-    // M3.Display();
+    M1.Convert1(M4);
+    M2.Convert1(M5);
 
     M6.SparseAdd(M4,M5);
+    M7.Convert1(M6);
+   
+
+    cout<<"   "<<endl;
+    cout<<"       ------ ADDITION OF SPARSE MATRIX ------"<<endl;
+    cout<<"   "<<endl;
+    
+    cout<<"   Sparse Matrix M1 "<<endl;
+    M1.Display();
+    cout<<"   "<<endl;
+
+    cout<<"   Triplet Representation "<<endl;
+    M4.Display();
+    cout<<"   "<<endl;
+    
+    cout<<"   Sparse Matrix M2 "<<endl;
+    M2.Display();
+    cout<<"   "<<endl;
+
+    cout<<"   Triplet Representation "<<endl;
+    M5.Display();
+    cout<<"   "<<endl;
+
+    cout<<"   Sum of M1 and M2 "<<endl;
+    M7.Display();
+    cout<<"   "<<endl;
+
+    cout<<"   Triplet Representation "<<endl;
     M6.Display();
+    cout<<"   "<<endl;
 
 
-    // int option,n,choice=1;
-    // float A[14]={66,33,40,22,55,88,60,11,80,20,50,44,77,30};
-    // float B[14];
-    // float *C;
-    // float *D;
-
-    // cout<<"   ------ SPARSE MATRIX ------"<<endl;
-    // cout<<"   "<<endl;
-    // while(choice==1)
-    // {
-    //     cout<<"   Choose from the following options to continue"<<endl;
-    //     cout<<"      1 : Transpose of a sparse matrix"<<endl;
-    //     cout<<"      2 : Addition of two sparse matrices"<<endl;
-    //     cout<<"   >>>";
-    //     cin>>option;
-        
-
-    //     if(option==1)
-    //     {
-    //        cout<<"   Enter the number of non zero elements in the sparse matrix"<<endl;
-    //        cout<<"   >>>";
-    //        cin>>n; 
-
-    //       MATRIX M1(n+1,3);
-    //       MATRIX M2(n+1,3);
-          
-
-    //         cout<<"   Enter the triplet representaion of the sparse matrix : "<<endl;
-    //         cout<<"   >>>";
-    //         M1.Input();
-    //         M2.Transpose(M1);
-
-    //         cout<<"   Given  : "<<endl;
-    //         cout<<"   >>>";
-
-
-
-
-            
-            
-            
-    //         if(float(n/2)==0)
-    //         {
-    //             for(int i=0;i<n-1;i++)
-    //             {
-    //                 cout<<C[i]<<", ";
-    //             }
-    //             cout<<C[n-1]<<endl;
-    //         }
-    //         else
-    //         {
-    //             for(int i=0;i<n-1;i++)
-    //             {
-    //                 cout<<D[i]<<", ";
-    //             }
-    //             cout<<D[n-1]<<endl;
-
-    //         }
-    //     }
-        
-    //     else if(option==2)
-    //     {
-    //         n=14;
-    //         cout<<"   Default array : "<<endl;
-    //         cout<<"   >>>";
-    //         for(int i=0;i<n-1;i++)
-    //         {
-    //             cout<<A[i]<<", ";
-    //         }
-    //         cout<<A[n-1]<<endl;
-    //         cout<<"   Array after sorting : "<<endl;
-    //         cout<<"   >>>";
-    //         MERGE_SORT(A,B,n);
-    //        if(float(n/2)==0)
-    //         {
-    //             for(int i=0;i<n-1;i++)
-    //             {
-    //                 cout<<A[i]<<", ";
-    //             }
-    //             cout<<A[n-1]<<endl;
-    //         }
-    //         else
-    //         {
-    //             for(int i=0;i<n-1;i++)
-    //             {
-    //                 cout<<B[i]<<", ";
-    //             }
-    //             cout<<B[n-1]<<endl;
-
-    //         }
-    //     }
-        
-        
-    //     cout<<"   Would you like to continue"<<endl;
-    //     cout<<"      1 : yes"<<endl;
-    //     cout<<"      0 : no"<<endl;
-    //     cout<<"   >>>";
-    //     cin>>choice;
-    //     cout<<"   "<<endl;
-
-    // }
-
+    
+    
+   
     return 0;
 }
