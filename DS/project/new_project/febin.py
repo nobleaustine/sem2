@@ -1,9 +1,17 @@
+from tkinter import *
+
+
 class create:
 
-	def __init__(self,dtype,name,value=None):
+	def __init__(self,master,y,dtype,name,value=None):
 		self.dtype = dtype
 		self.name = name
 		self.value = value
+		self.canvas = Canvas(master,bg="white",width=y,height=30)
+		self.canvas.pack(anchor=NW)
+		self.canvas.create_text(10,y//2,text="create")
+		self.canvas.create_oval(10,y//2)
+		
 
 	def parse(self,file):
 

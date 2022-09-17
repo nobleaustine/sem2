@@ -2,7 +2,7 @@
 #include <stdlib.h>
 using namespace std;
 
-int main() {
+int main(){
 
 int m = 9+4;
 char letter;

@@ -1,13 +1,25 @@
+# libraries used
+from re import L
+from tkinter import *
+from turtle import bgcolor
+from typing_extensions import Self
+from PIL import ImageTk,Image
+from tkinter import ttk
+
 # list for inputting objects of all classes
 source = []
 
 # class for creating a variable of particular data type
 class create:
 
-	def __init__(self,dtype,name,value=None):
+	def __init__(self,master,y,dtype,name,value=None):
 		self.dtype = dtype
 		self.name = name
 		self.value = value
+		self.canvas = Canvas(master,bg="white",width=y,height=100)
+		self.canvas.pack()
+		self.canvas.create_text(300,50,text= str(name) + " = " + str(value) )
+		self.canvas.create_oval(270,20,330,80)
 
 	def parse(self,file):
 
@@ -93,75 +105,72 @@ class _for:
 			i.parse(file)
 		file.write("}\n")
 
-# part to move with mouse
-
-def move(e):
-    my_label.config(text="Coordinates : x:" + str(e.x) + " y:" + str(e.y))
-
-
-
-# part to control the arrow keys
-def left(event):
-	x = -10
-	y = 0
-    
-	Cgraphic.move(start,x,y)
-	Cgraphic.move(sname,x,y)
-
-def right(event):
-	x = 10
-	y = 0
-    
-	Cgraphic.move(start,x,y)
-	Cgraphic.move(sname,x,y)
-
-def up(event):
-	x = 0
-	y = -10
-    
-	Cgraphic.move(start,x,y)
-	Cgraphic.move(sname,x,y)
-
-def dow(event):
-	x = 0
-	y = 10
-    
-	Cgraphic.move(start,x,y)
-	Cgraphic.move(sname,x,y)
-
 # graphical interface
-from tkinter import *
 
 # main window for diplaying program
 main = Tk(None,None,'project',1)
-main.state('zoomed')
+main.state("zoomed")
+main.config(bg="black")
+
+main.iconbitmap('C:/Users/91964/Desktop/GITHUB/sem2/DS/project/new_project/2.ico')
 
 # main heading as C++ GRAPHICS 
-text= Label(main, font=('Times New Roman',15,'bold'),text="C++ GRAPHICS",bg="#2B55A9")
-text.pack()
+# text= Label(main, font=('Times New Roman',15,'bold'),text="C++ GRAPHICS",bg="#2B55A9")
+# text.grid(row=0,column=0)
 
-# frame for placing tools 
-tools=Frame(main,bg="red")
-tools.pack(side=LEFT,anchor=NW)
+top=LabelFrame(main,text="options",bg="cyan",padx=10,pady=10)
+top.pack(side=TOP,anchor=NW,padx=5,pady=5,fill=X)
+# frame for placing tools
+tools=LabelFrame(main,bg="yellow",text="tools",padx=10,pady=10)
+tools.pack(side=LEFT,anchor=NW,padx=5,pady=5,fill=Y)
+
 
 # frame for displaying the flowchart  
-graphic=Frame(main,bg="green")
-graphic.pack(side=LEFT,anchor=NW)
+graphic=LabelFrame(main,bg="green",text="flowchart",padx=10,pady=10)
+graphic.pack(side=LEFT,padx=5,pady=5,anchor=NW)
 
 # frame for displaying code
-code=Frame(main,bg="blue")
-code.pack(side=LEFT,anchor=NW)
+code=LabelFrame(main,bg="blue",text="code",padx=10,pady=10)
+code.pack(side=RIGHT,padx=5,pady=5,anchor=NW)
 
-# label to display heading of graphics section
-hgraphic=Label(graphic,font=('Times New Roman',15,'bold'),text="GRAPHIC",bg="#2B55A9")
-hgraphic.pack()
+frame1= Frame(graphic,width=600,height=800)
+frame1.pack(fill=BOTH,expand=1)
 
-# contents within tools frame
-# heading for tools frame as TOOLS
-htools=Label(tools,font=('Times New Roman',15,'bold'),text="TOOLS",bg="#2B55A9")
-htools.pack()
+frame2= Frame(code,width=400,height=800)
+frame2.pack(fill=BOTH,expand=1)
+
+canvas1=Canvas(frame1,width=600,height=800)
+canvas1.pack(side=LEFT,fill=BOTH,expand=1)
+
+canvas2=Canvas(frame2,width=400,height=800)
+canvas2.pack(side=LEFT,fill=BOTH,expand=1)
+
+scrollbar1= ttk.Scrollbar(frame1,orient=VERTICAL,command=canvas1.yview)
+scrollbar1.pack(side=RIGHT,fill=Y)
+
+scrollbar2= ttk.Scrollbar(frame2,orient=VERTICAL,command=canvas2.yview)
+scrollbar2.pack(side=RIGHT,fill=Y)
+
+canvas1.configure(yscrollcommand=scrollbar1.set)
+canvas1.bind('<Configure>',lambda e:canvas1.configure(scrollregion=canvas1.bbox("all")))
+
+canvas2.configure(yscrollcommand=scrollbar2.set)
+canvas2.bind('<Configure>',lambda e:canvas2.configure(scrollregion=canvas2.bbox("all")))
+
+area1=Frame(canvas1,width=600,height=800)
+area2=Frame(canvas2,width=400,height=800,bg="red")
+
+canvas1.create_window((0,0),window=area1,anchor=NW,width=600,height=800)
+canvas2.create_window((0,0),window=area2,anchor=NW,width=400,height=800)
+
+st1=Canvas(area1,width=600,height=100,bg="white")
+st1.pack()
+st1.create_text(300,50,text= "START" )
+st1.create_oval(250,20,350,80)
+st1.create_line(300,80,300,100)
 
 # functions called while using tools buttons
+
 def CREATE():
 
     global pop1
@@ -171,7 +180,7 @@ def CREATE():
     
     def INSERT():
 
-        source.append(create(Edtype.get(),Ename.get(),Evalue.get()))
+        source.append(create(area1,600,Edtype.get(),Ename.get(),Evalue.get()))
         pop1.destroy()
     
     Cframe=Frame(pop1,width=500,height=200)
@@ -194,6 +203,7 @@ def CREATE():
 
     Cbutton=Button(Cframe,text='ENTER',width=10,command=INSERT)
     Cbutton.grid(row=6,column=6,padx=20,pady=20)
+
 
 def ASSIGN():
 
@@ -274,58 +284,79 @@ def OUTPUT():
     Cbutton=Button(Cframe,text='ENTER',width=10,command=INSERT)
     Cbutton.grid(row=6,column=6,padx=20,pady=20)
 
-def move(event):
-    my_label.config(text="Coordinate : x :" + str(event.x) + " y :" + str(event.y))
-    # start=Cgraphic.create_oval(event.x,event.y,event.x + 50,event.y + 50)
-    a=100
-    b=100
-    c=event.x -a 
-    d=event.y -b
-    Cgraphic.move(start,c,d)
-    Cgraphic.move(sname,c,d)
-
 # various tools as buttons
-C=Button(tools,text='CREATE',width=25,command=CREATE)
-C.pack()
-A=Button(tools,text='ASSIGNMENT',width=25,command=ASSIGN)
-A.pack()
-I=Button(tools,text='INPUT',width=25,command=INPUT)
-I.pack()
-O=Button(tools,text='OUTPUT',width=25,command=OUTPUT)
-O.pack()
-IF=Button(tools,text='IF',width=25)
-IF.pack()
-F=Button(tools,text='FOR',width=25)
-F.pack()
-W=Button(tools,text='WHILE',width=25)
-W.pack()
-
-my_label=Label(tools,text="a")
-my_label.pack()
-
-Cgraphic=Canvas(graphic,width=600,height=800,bg="white")
-Cgraphic.pack(side=LEFT,anchor=NW)
+N=Button(top,text='NEW',width=10,height=1)
+N.pack(side=LEFT,anchor=NW)
+OP=Button(top,text='OPEN',width=10,height=1)
+OP.pack(side=LEFT,anchor=NW)
+S=Button(top,text='SAVE',width=10,height=1)
+S.pack(side=LEFT,anchor=NW)
+R=Button(top,text='RUN',width=10,height=1)
+R.pack(side=LEFT,anchor=NW)
+C=Button(top,text='CLEAR',width=10,height=1)
+C.pack(side=LEFT,anchor=NW)
 
 
+I=Button(tools,text='INPUT',width=10,command=INPUT)
+I.grid(row=0,column=0)
+O=Button(tools,text='OUTPUT',width=10,command=OUTPUT)
+O.grid(row=1,column=0)
+C=Button(tools,text='CREATE',width=10,command=CREATE)
+C.grid(row=2,column=0)
+A=Button(tools,text='ASSIGNMENT',width=10,command=ASSIGN)
+A.grid(row=3,column=0)
+I=Button(tools,text='INPUT',width=10,command=INPUT)
+I.grid(row=4,column=0)
+O=Button(tools,text='OUTPUT',width=10,command=OUTPUT)
+O.grid(row=5,column=0)
+IF=Button(tools,text='IF',width=10)
+IF.grid(row=6,column=0)
+F=Button(tools,text='FOR',width=10)
+F.grid(row=7,column=0)
+W=Button(tools,text='WHILE',width=10)
+W.grid(row=8,column=0)
+Ms=Frame(tools,bg="")
+Ms.grid(row=9,column=0,padx=3,pady=3)
+m1=Button(Ms,text='^',width=3)
+m1.grid(row=0,column=1)
+m2=Button(Ms,text='<',width=3)
+m2.grid(row=1,column=0)
+m3=Button(Ms,text='>',width=3)
+m3.grid(row=1,column=2)
+m4=Button(Ms,text='v',width=3)
+m4.grid(row=2,column=1)
 
-start=Cgraphic.create_oval(50,50,100,100)
-sname=Cgraphic.create_text(75,75,text="START")
-Cgraphic.create_line(75,100,75,150)
+co=Label(tools,text='coordinates',width=10)
+co.grid(row=14,column=0)
 
- 
-# main.bind("<Left>",left)
-# main.bind("<Right>",right)
-# main.bind("<Up>",up)
-# main.bind("<Down>",dow)
-main.bind('<B1-Motion>',move)
 
-f=open("main.cpp","r")
-data=f.read()
-hcode=Label(code,font=('Times New Roman',15,'bold'),text="CODE",bg="#2B55A9")
-hcode.pack()
-Ccode=Label(code,width=600,height=800,font=('Times New Roman',12),bg='grey',text=data)
-Ccode.pack(side=LEFT,anchor=NW)
+f=open('C:/Users/91964/Desktop/GITHUB/sem2/DS/project/new_project/main.cpp',"r")
+data1=f.read()
+g=open('C:/Users/91964/Desktop/GITHUB/sem2/DS/project/new_project/numbers.txt',"r")
+data2=g.read()
 
+num=Label(area2,width=2,height=800,bg='white',text=data2)
+num.pack(side=LEFT,anchor=NW)
+
+cpp=Label(area2,width=398,height=800,bg='grey',text=data1,justify="left")
+cpp.pack(side=LEFT,anchor=NW,fill=BOTH)
+
+
+# def dimension():
+#     info=Label(tools,text=str(main.winfo_height()) + "x" + str(main.winfo_width()),bg="white")
+#     info.grid(row=8,column=0)
+# dimension()
+def move(e):
+    co.config(text="( x :" + str(e.x) + "y :" + str(e.y) + " )")
+
+main.bind('<Motion>',move)
 main.mainloop()
+
+
+
+
+
+
+
 
 print(source)
